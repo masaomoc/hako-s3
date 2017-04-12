@@ -1,8 +1,6 @@
-# Hako::S3
+# Hako::EnvProviders::S3
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hako/s3`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+EnvProvider for [Hako](https://github.com/eagletmt/hako)
 
 ## Installation
 
@@ -22,7 +20,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You have to put variable file in a specific format. Currently only JSON file is supported. 
+
+```json
+{
+  "SOME_VARIABLE_KEY": "value1",
+  "ANOTHER_VARIABLE_KEY" : "value2"
+}
+```
+
+And you can write Hako's .yml as following:
+
+```yaml
+env:
+  $providers:
+    - type: s3
+      bucket_name: some_bucket_name
+      object_path: path_to_file
+      region: ap-northeast-1
+      profile: default
+  ENV_VAR: '#{SOME_VARIABLE_KEY}'
+  ANOTHOER_VAR: '#{ANOTHER_VARIABLE_KEY}'
+```
+
+### Parameters
+
+#### Required
+
+- type: s3 (fixed)
+- bucket_name: your bucket name
+- object_path: path to your S3 file
+- region: S3 bucket region
+
+#### Optional
+
+- profile: profile name for [AWS Shared Credential File](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-multiple-profiles)
 
 ## Development
 
@@ -32,8 +64,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hako-s3. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/masaomoc/hako-s3.
 
 ## License
 
